@@ -1,8 +1,10 @@
 # Novl
 
-A local, offline AI writing app: your project documents on the left, an AI prompt box on top, and a full markdown text editor below. Everything runs on your machine — no accounts, no cloud, no telemetry.
+**Write short stories and full novels with less effort — and nothing leaves your machine.**
 
-Novl is **designed for midgrade integrated graphics**, the kind found in mini PCs and laptops. It has no heavy GPU requirements and runs comfortably on CPU alone.
+Novl is a local, offline AI writing app built for fiction. Plan your chapters, track characters and worldbuilding as you go, and use the built-in AI to generate drafts, continuations, and rewrites — all from a clean markdown editor. No accounts, no cloud, no telemetry: every word is generated on your own hardware.
+
+It's also a genuinely lighter alternative to today's AI writing apps. Designed for the midrange, more affordable laptops and mini PCs most writers actually own, Novl has no GPU requirement and generates comfortably on CPU alone — on machines where many comparable apps won't even run.
 
 > Developed and tested on **AMD Ryzen with no discrete graphics card** (integrated Radeon only).
 
