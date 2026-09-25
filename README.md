@@ -74,6 +74,7 @@ dist/win-unpacked/   Fully self-contained portable app (what you ship as a zip)
 
 ## Roadmap
 
+- [ ] **Built-in Hugging Face GGUF search and download:** find and download models without leaving the app.
 - [ ] **AI-based grammar check tool:** sentence-level grammar, spelling, and style suggestions powered by the local model.
 - [ ] **Online dictionary tool:** word definitions, synonyms, and usage examples in one click.
 - [ ] **"AI-written" pattern checker:** a programmatic (non-AI) scan for repetitive phrasing and cadence that reads as generated text, so you can edit it back toward a human voice.
