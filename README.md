@@ -36,10 +36,11 @@ The bundled inference backend is tuned for **AMD Ryzen CPUs (Zen 4 / AVX-512)** 
 
 1. Download the latest release (`novl-<version>-win32-x64.zip`).
 2. Unzip anywhere and run `novl.exe`.
-3. Open **Settings** and pick a GGUF model file (e.g. a Qwen 3.5 1B/9B Q4 quant). The recommended tested model is a 9B Q4_K_M quant running in ~16–100 s per generation on a Ryzen 7 7840HS.
-4. Create a project, add a document, and start writing. Use the AI box to ask for continuations, rewrites, or outline help.
+3. Download an LLM from **Hugging Face** yourself — pick any GGUF file, e.g. a Qwen 3.5 1B/9B Q4 quant (the recommended tested model is a 9B Q4_K_M quant, running in ~16–100 s per generation on a Ryzen 7 7840HS).
+4. Open **Settings** and use the **Browse** button to select the `.gguf` file you downloaded.
+5. Create a project, add a document, and start writing. Use the AI box to ask for continuations, rewrites, or outline help.
 
-Models are kept in plain `.gguf` files; any GGUF that works with `llama.cpp` should work here.
+Models are kept in plain `.gguf` files; any GGUF that works with `llama.cpp` should work here. Novl does not bundle a model — the app is the tool, and you bring the model that fits your hardware and taste.
 
 ## Building from source
 
@@ -71,10 +72,31 @@ backend/       llama-server runtime binaries (dev), bundled into releases
 dist/win-unpacked/   Fully self-contained portable app (what you ship as a zip)
 ```
 
+## Roadmap
+
+- [ ] **AI-based grammar check tool** — sentence-level grammar, spelling, and style suggestions powered by the local model.
+- [ ] **Online dictionary tool** — word definitions, synonyms, and usage examples in one click.
+- [ ] **"AI-written" pattern checker** — a programmatic (non-AI) scan for repetitive phrasing and cadence that reads as generated text, so you can edit it back toward a human voice.
+
 ## Acknowledgments
 
 - **[Recall](https://github.com/raiyanyahya/recall)** by **Raiyan Yahya** — its token-free local summarizer (TF-IDF + TextRank) was ported and used to condense reference documents into a compact context before each generation.
 - **ik_llama.cpp ([ikawrakow](https://github.com/ikawrakow/ik_llama.cpp), build 5311, commit `01165d82`, Clang 19.1.5)** — the CPU inference backend Novl uses to power offline generation on Zen 4 / AVX-512 hardware.
+
+## Contributing
+
+Issues and pull requests are welcome — this project is small and community-driven, and every contribution helps.
+
+**Reporting a bug or asking for a feature:** open an [issue](https://github.com/peppersgc/Novl/issues) and describe what you expected versus what happened (bugs), or what you'd like the app to do (feature requests). Screenshots, steps to reproduce, and your hardware setup are always helpful.
+
+**Submitting code (pull requests):**
+
+1. Fork the repository on GitHub.
+2. Clone your fork locally and create a feature branch (`git checkout -b my-feature`).
+3. Make your changes. For UI/logic in type-safe code, run `npm run typecheck` before committing.
+4. Commit and push your branch, then open a pull request against `main` describing what you changed and why.
+
+Keep the scope of a PR focused on one change — it makes review faster and easier to merge.
 
 ## License
 
