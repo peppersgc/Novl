@@ -1,0 +1,7 @@
+node_modules/
+dist/
+dist-electron/
+backend/
+devout.log
+llama.log
+*.log
