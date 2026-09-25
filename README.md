@@ -8,6 +8,13 @@ It's also a genuinely lighter alternative to today's AI writing apps. Designed f
 
 > Developed and tested on **AMD Ryzen with no discrete graphics card** (integrated Radeon only).
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Novl screenshot 1](screenshots/novl-1.jpg) | ![Novl screenshot 2](screenshots/novl-2.jpg) |
+| ![Novl screenshot 3](screenshots/novl-3.jpg) | ![Novl screenshot 4](screenshots/novl-4.jpg) |
+
 ## Features
 
 - **Projects & documents:** organize your writing into projects, categories, and chapters stored in plain files.
