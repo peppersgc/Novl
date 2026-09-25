@@ -69,6 +69,11 @@ backend/       llama-server runtime binaries (dev), bundled into releases
 dist/win-unpacked/   Fully self-contained portable app (what you ship as a zip)
 ```
 
+## Acknowledgments
+
+- **[Recall](https://github.com/raiyanyahya/recall)** by **Raiyan Yahya** — its token-free local summarizer (TF-IDF + TextRank) was ported and used to condense reference documents into a compact context before each generation.
+- **ik_llama.cpp ([ikawrakow](https://github.com/ikawrakow/ik_llama.cpp), build 5311, commit `01165d82`, Clang 19.1.5)** — the CPU inference backend Novl uses to power offline generation on Zen 4 / AVX-512 hardware.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
