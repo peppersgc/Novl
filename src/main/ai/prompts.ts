@@ -4,9 +4,12 @@ Follow the author's instruction exactly and stay focused on the current document
 If the instruction is ambiguous, make a reasonable creative choice and keep going.
 Output only the text the author asked for - no preamble, no notes, no commentary.`
 
+import { summarize } from './summarizer'
+
 export const MAX_DOC_TAIL = 4000
 const MAX_REFERENCE_CHARS = 9000
 const PER_DOC_REF_CHARS = 1500
+const SUMMARY_SENTENCES = 10
 
 export interface ReferenceDoc {
   title: string
@@ -18,6 +21,18 @@ export interface GeneratePrompt {
   user: string
 }
 
+export function condenseDoc(content: string, maxChars: number): string {
+  if (content.length <= maxChars) return content
+  const sentences = summarize(content, SUMMARY_SENTENCES)
+  if (!sentences.length) return content.slice(0, maxChars)
+  let out = ''
+  for (const s of sentences) {
+    if (out.length + s.length + 1 > maxChars) break
+    out = out ? `${out} ${s}` : s
+  }
+  return out && out.length > 0 ? out : content.slice(0, maxChars)
+}
+
 export function buildGeneratePrompt(
   projectName: string,
   docTitle: string,
@@ -27,9 +42,9 @@ export function buildGeneratePrompt(
 ): GeneratePrompt {
   let refText = referenceDocs
     .map((d) => {
-      let c = d.content.trim()
-      if (c.length > PER_DOC_REF_CHARS) c = `${c.slice(0, PER_DOC_REF_CHARS)}\n[…truncated]`
-      return `### ${d.title}\n${c}`
+      const c = d.content.trim()
+      const condensed = condenseDoc(c, PER_DOC_REF_CHARS)
+      return `### ${d.title}\n${condensed}`
     })
     .join('\n\n')
   if (refText.length > MAX_REFERENCE_CHARS) {
