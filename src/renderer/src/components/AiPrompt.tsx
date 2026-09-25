@@ -19,11 +19,10 @@ export function AiPrompt() {
   const showToast = useStore((s) => s.showToast)
   const taRef = useRef<HTMLTextAreaElement>(null)
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const promptIdRef = useRef<string | null>(null)
   const lastSavedRef = useRef<{ id: string; text: string } | null>(null)
+  const pendingRef = useRef<{ id: string; text: string } | null>(null)
 
   const promptId = activeDoc && (activeDoc.key.startsWith('ch:') ? 'chapter' : activeDoc.key)
-  promptIdRef.current = promptId
 
   const flushPromptSave = (id: string, text: string): void => {
     if (
@@ -39,26 +38,25 @@ export function AiPrompt() {
 
   useEffect(() => {
     return () => {
-      if (saveTimer.current) clearTimeout(saveTimer.current)
-      const id = promptIdRef.current
-      const text = useStore.getState().prompt
-      if (id && text) flushPromptSave(id, text)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (saveTimer.current) {
-      clearTimeout(saveTimer.current)
-      saveTimer.current = null
+      if (saveTimer.current) {
+        clearTimeout(saveTimer.current)
+        saveTimer.current = null
+      }
+      const pending = pendingRef.current
+      if (pending) flushPromptSave(pending.id, pending.text)
     }
   }, [promptId])
 
   const onPromptChange = (value: string): void => {
     setPrompt(value)
-    if (promptId) {
-      if (saveTimer.current) clearTimeout(saveTimer.current)
-      saveTimer.current = setTimeout(() => flushPromptSave(promptId, value), 700)
-    }
+    if (!promptId) return
+    pendingRef.current = { id: promptId, text: value }
+    if (saveTimer.current) clearTimeout(saveTimer.current)
+    saveTimer.current = setTimeout(() => {
+      const pending = pendingRef.current
+      if (pending) flushPromptSave(pending.id, pending.text)
+      pendingRef.current = null
+    }, 700)
   }
 
   const generate = async (): Promise<void> => {
@@ -76,7 +74,10 @@ export function AiPrompt() {
       showToast('The model is still loading...', 'err')
       return
     }
-    if (promptId) flushPromptSave(promptId, prompt)
+    if (promptId) {
+      const pending = pendingRef.current
+      if (pending) flushPromptSave(pending.id, pending.text)
+    }
     setAiBusy(true)
     try {
       const text = await window.novl.ai.generate(
