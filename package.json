@@ -1,6 +1,6 @@
 {
   "name": "novl",
-  "version": "9.25.26-beta",
+  "version": "9.25.26.1-beta",
   "description": "A simple local-AI writing app: docs on the left, an AI prompt box on top, a text editor below.",
   "author": "Novl",
   "license": "MIT",
